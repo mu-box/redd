@@ -1,9 +1,13 @@
-[![red logo](http://nano-assets.gopagoda.io/readme-headers/red.png)](http://nanobox.io/open-source#red)
- [![Build Status](https://travis-ci.org/nanopack/redd.svg)](https://travis-ci.org/nanopack/redd)
+[![red logo](http://microbox.rocks/assets/readme-headers/red.png)](http://microbox.cloud/open-source#red)
+ [![Build Status](https://github.com/mu-box/redd/actions/workflows/ci.yaml/badge.svg)](https://github.com/mu-box/redd/actions)
 # REDD
 
-## What is REDD?
-Redd is a management plain for the Linux vxlan module. The Linux vxlan module can use multicast to auto-discover peers, and send broadcast packets (like arp requests). Many datacenters don't handle multicast traffic very well when hosts are on different network segments. The other method is to seed the forwarding database with the location to find the IPs. This doesn't work very well if you want to have IPs switch between machines. Redd is a compromise between the two. Redd listens for multicast packets and sends a copy of it out to each node in a list allowing hosts that can't multicast to each other to talk to each other. This allows arp requests and other broadcast packets to be delivered to each host that needs them.
+## What is REDD? Redd is a management plane for the Linux vxlan module. The Linux vxlan module can use multicast to auto-discover peers, and send
+broadcast packets (like arp requests). Many datacenters don't handle multicast traffic very well when hosts are on different network segments. The
+other method is to seed the forwarding database with the location to find the IPs. This doesn't work very well if you want to have IPs switch between
+machines. Redd is a compromise between the two. Redd listens for multicast packets and sends a copy of it out to each node in a list allowing hosts
+that can't multicast to each other to talk to each other. This allows arp requests and other broadcast packets to be delivered to each host that needs
+them.
 
 ## How to use REDD:
 
@@ -17,7 +21,7 @@ Redd is a management plain for the Linux vxlan module. The Linux vxlan module ca
            red /etc/red/4000.conf
            red --port 7777
            red /etc/myred.conf --loglevel verbose
-    
+
 ### Configuration options
 
 The following things can be set in the redd configuration file:
@@ -84,4 +88,4 @@ Port to configure the vxlan driver to use. Defaults to "8472".
 #### vxlan-interface
 Physical interface to send vxlan traffic over. Defaults to "eth0".
 
-[![open source](http://nano-assets.gopagoda.io/open-src/nanobox-open-src.png)](http://nanobox.io/open-source)
+[![open source](http://microbox.rocks/assets/open-src/microbox-open-src.png)](http://microbox.cloud/open-source)

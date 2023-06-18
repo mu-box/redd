@@ -1,12 +1,5 @@
 // -*- mode: c; tab-width: 4; indent-tabs-mode: 1; st-rulers: [70] -*-
 // vim: ts=8 sw=8 ft=c noet
-/*
- * Copyright (c) 2015 Pagoda Box Inc
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public License, v.
- * 2.0. If a copy of the MPL was not distributed with this file, You can obtain one
- * at http://mozilla.org/MPL/2.0/.
- */
 
 #include <ctype.h>
 #include <errno.h>
@@ -48,7 +41,7 @@ send_to_red(red_node_t *red, char *frame, int len)
 	async_io_poll_start(&server.udp_async_io);
 }
 
-static void 
+static void
 do_broadcast(char *frame, int len)
 {
 	listIter *iter = listGetIterator(server.nodes, AL_START_HEAD);
@@ -59,7 +52,7 @@ do_broadcast(char *frame, int len)
 	listReleaseIterator(iter);
 }
 
-void 
+void
 handle_local_frame(char *frame, int len)
 {
 	struct iphdr *ip_header = (struct iphdr *)frame;
@@ -80,7 +73,7 @@ handle_local_frame(char *frame, int len)
 	}
 }
 
-void 
+void
 init_routing()
 {
 	init_tun();

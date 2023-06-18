@@ -1,34 +1,28 @@
 #!/usr/bin/env ruby
-# 
-# Copyright (c) 2015 Pagoda Box Inc
-# 
-# This Source Code Form is subject to the terms of the Mozilla Public License, v.
-# 2.0. If a copy of the MPL was not distributed with this file, You can obtain one
-# at http://mozilla.org/MPL/2.0/.
-# 
- 
+#
+
 require 'socket'
 require 'msgpack'
- 
+
 class Connection
- 
+
   MAX_ATTEMPTS = 30
- 
+
   attr_accessor :socket
-  
+
   def initialize(host='127.0.0.1', port=4000, autoconnect=true)
     @host     = host
     @port     = port
     @attempts = 0
     connect if autoconnect
   end
- 
+
   def deliver(message)
     socket.print [message.bytes.count].pack('L') # 32-bit unsigned, native endian (uint32_t)
     socket.print message
     socket.flush
   end
- 
+
   def receive
     len = socket.recv(4).unpack('L')[0] # 32-bit unsigned, native endian (uint32_t)
     data = ''
@@ -37,23 +31,23 @@ class Connection
     end
     data
   end
- 
+
   def socket
     @socket ||= establish_connection
   end
- 
+
   alias :connect :socket
- 
+
   def establish_connection
     TCPSocket.open @host, @port
   end
 end
- 
+
 host = '127.0.0.1'
 port = '4000'
- 
+
 connection = Connection.new host, port, false
- 
+
 connection.deliver ["hi", 5, "what all can go in here?", [{"key" => "value"}, {"another" => "hash", "with" => {"nested" => "values"}}]].to_msgpack
 
 data = connection.receive

@@ -1,12 +1,5 @@
 // -*- mode: c; tab-width: 4; indent-tabs-mode: 1; st-rulers: [70] -*-
 // vim: ts=8 sw=8 ft=c noet
-/*
- * Copyright (c) 2015 Pagoda Box Inc
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public License, v.
- * 2.0. If a copy of the MPL was not distributed with this file, You can obtain one
- * at http://mozilla.org/MPL/2.0/.
- */
 
 #ifndef REDD_ASYNC_IO_H
 #define REDD_ASYNC_IO_H
@@ -78,14 +71,14 @@ struct async_io_s {
 async_io_buf_t *async_io_buf_create(int len);
 async_io_buf_t *async_io_write_buf_get(async_io_t *async_io);
 int async_io_init(async_io_t *async_io, int fd, void *data,
-	int read_buf_len, int read_buf_count, 
+	int read_buf_len, int read_buf_count,
 	async_io_each read_each, async_io_done read_done, async_io_cb read_cb,
-	int write_buf_len, int write_buf_count, 
+	int write_buf_len, int write_buf_count,
 	async_io_each write_each, async_io_done write_done, async_io_cb write_cb);
 int async_io_worker_init(async_io_t *async_io, int fd, void *data,
-	int read_buf_len, int read_buf_count, 
+	int read_buf_len, int read_buf_count,
 	async_io_each read_each, async_io_done read_done, async_io_cb read_cb,
-	int write_buf_len, int write_buf_count, 
+	int write_buf_len, int write_buf_count,
 	async_io_each write_each, async_io_done write_done, async_io_cb write_cb);
 int async_io_poll_start(async_io_t *async_io);
 int async_io_poll_stop(async_io_t *async_io);

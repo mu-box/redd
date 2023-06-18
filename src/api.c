@@ -1,12 +1,5 @@
 // -*- mode: c; tab-width: 4; indent-tabs-mode: 1; st-rulers: [70] -*-
 // vim: ts=8 sw=8 ft=c noet
-/*
- * Copyright (c) 2015 Pagoda Box Inc
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public License, v.
- * 2.0. If a copy of the MPL was not distributed with this file, You can obtain one
- * at http://mozilla.org/MPL/2.0/.
- */
 
 #include <bframe.h>
 #include <msgxchng.h>
@@ -68,10 +61,10 @@ char
 	msgpack_pack_map(packer, elements);
 
 	for (int i = 0; i < elements; i++) {
-		msgpack_pack_key_value(packer, 
-			return_data[i].key, 
-			return_data[i].key_len, 
-			return_data[i].value, 
+		msgpack_pack_key_value(packer,
+			return_data[i].key,
+			return_data[i].key_len,
+			return_data[i].value,
 			return_data[i].value_len);
 	}
 
@@ -142,7 +135,7 @@ reply_error(api_client_t *client, msgxchng_request_t *req, char *error_message)
 
 	data = pack_reply_data(return_data, 2, &size);
 	res = new_msgxchng_response(req->id, req->id_len, data, size, "complete", 8);
-	
+
 	reply(client, res);
 	free(data);
 	data = NULL;
@@ -243,7 +236,7 @@ on_read(uv_stream_t *proto, ssize_t nread, uv_buf_t buf)
 
 	frames = parse_char_to_bframes(buf.base, nread, client->buf, &framec);
 
-	for (int i=0; i < framec ; i++) 
+	for (int i=0; i < framec ; i++)
 		parse_request(client, frames[i]);
 
 	/* cleanup */

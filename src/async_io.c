@@ -1,12 +1,5 @@
 // -*- mode: c; tab-width: 4; indent-tabs-mode: 1; st-rulers: [70] -*-
 // vim: ts=8 sw=8 ft=c noet
-/*
- * Copyright (c) 2015 Pagoda Box Inc
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public License, v.
- * 2.0. If a copy of the MPL was not distributed with this file, You can obtain one
- * at http://mozilla.org/MPL/2.0/.
- */
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -38,7 +31,7 @@ async_io_loop_do(void *data, async_io_queue_t *async_io_queue)
 
 static void
 async_io_do(uv_work_t *req)
-{ 
+{
 	async_io_baton_t *baton = (async_io_baton_t*)req->data;
 	void *data = baton->async_io_queue->data;
 	async_io_queue_t *async_io_queue = baton->async_io_queue;
@@ -129,7 +122,7 @@ async_io_poll_cb(uv_poll_t *poll, int status, int events)
 	}
 }
 
-static int 
+static int
 async_io_poll_init(async_io_t *async_io, uv_loop_t *loop,int (*init_cb)(async_io_t *async_io))
 {
 	async_io->poll.data = (void *)async_io;
@@ -145,7 +138,7 @@ async_io_poll_init(async_io_t *async_io, uv_loop_t *loop,int (*init_cb)(async_io
 
 static void
 async_io_queue_init(async_io_queue_t *async_io_queue, int fd, int flags, void *data,
-	int buf_len, int buf_count, 
+	int buf_len, int buf_count,
 	async_io_each _each, async_io_done _done, async_io_cb _cb)
 {
 	async_io_queue->fd = fd;
@@ -181,7 +174,7 @@ async_io_buf_t
 	return buf;
 }
 
-async_io_buf_t 
+async_io_buf_t
 *async_io_write_buf_get(async_io_t *async_io)
 {
 	async_io_buf_t *buf = NULL;
@@ -198,19 +191,19 @@ async_io_buf_t
 	return buf;
 }
 
-int 
+int
 async_io_init(async_io_t *async_io, int fd, void *data,
-	int read_buf_len, int read_buf_count, 
+	int read_buf_len, int read_buf_count,
 	async_io_each read_each, async_io_done read_done, async_io_cb read_cb,
-	int write_buf_len, int write_buf_count, 
+	int write_buf_len, int write_buf_count,
 	async_io_each write_each, async_io_done write_done, async_io_cb write_cb)
 {
 	async_io->fd = fd;
 	async_io_queue_init(&async_io->read_io, fd, UV_READABLE, data,
-		read_buf_len, read_buf_count, 
+		read_buf_len, read_buf_count,
 		read_each, read_done, read_cb);
 	async_io_queue_init(&async_io->write_io, fd, UV_WRITABLE, data,
-		write_buf_len, write_buf_count, 
+		write_buf_len, write_buf_count,
 		write_each, write_done, write_cb);
 
 	return async_io_poll_init(async_io,server.loop,async_io_poll_start);
@@ -222,7 +215,7 @@ async_io_poll_stop(async_io_t *async_io)
 	return uv_poll_stop(&async_io->poll);
 }
 
-int 
+int
 async_io_poll_start(async_io_t *async_io)
 {
 	int retval = UV_OK;
@@ -361,7 +354,7 @@ write_pong(uv_async_t *handle, int status)
 
 static void
 async_io_worker_do(async_io_queue_t *async_io_queue)
-{ 
+{
 	void *data = async_io_queue->data;
 	ngx_queue_t *q;
 	async_io_buf_t *buf;
@@ -377,7 +370,7 @@ async_io_worker_do(async_io_queue_t *async_io_queue)
 	}
 }
 
-static int 
+static int
 async_io_worker_poll_start(async_io_t *async_io)
 {
 	int retval = UV_OK;
@@ -428,7 +421,7 @@ init_worker(void *data)
 	uv_run(async_io->worker.loop, UV_RUN_DEFAULT);
 }
 
-static int 
+static int
 worker_start(async_io_t *async_io)
 {
 	worker_thread_t *worker = &async_io->worker;
@@ -453,18 +446,18 @@ worker_start(async_io_t *async_io)
 
 
 int async_io_worker_init(async_io_t *async_io, int fd, void *data,
-	int read_buf_len, int read_buf_count, 
+	int read_buf_len, int read_buf_count,
 	async_io_each read_each, async_io_done read_done, async_io_cb read_cb,
-	int write_buf_len, int write_buf_count, 
+	int write_buf_len, int write_buf_count,
 	async_io_each write_each, async_io_done write_done, async_io_cb write_cb)
 {
 	async_io->fd = fd;
 	async_io->worker.loop = uv_loop_new();
 	async_io_queue_init(&async_io->read_io, fd, UV_READABLE, data,
-		read_buf_len, read_buf_count, 
+		read_buf_len, read_buf_count,
 		read_each, read_done, read_cb);
 	async_io_queue_init(&async_io->write_io, fd, UV_WRITABLE, data,
-		write_buf_len, write_buf_count, 
+		write_buf_len, write_buf_count,
 		write_each, write_done, write_cb);
 
 	return async_io_poll_init(async_io,async_io->worker.loop,worker_start);

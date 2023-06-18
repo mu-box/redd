@@ -1,12 +1,5 @@
 // -*- mode: c; tab-width: 4; indent-tabs-mode: 1; st-rulers: [70] -*-
 // vim: ts=8 sw=8 ft=c noet
-/*
- * Copyright (c) 2015 Pagoda Box Inc
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public License, v.
- * 2.0. If a copy of the MPL was not distributed with this file, You can obtain one
- * at http://mozilla.org/MPL/2.0/.
- */
 
 // helper functions
 
@@ -23,7 +16,7 @@
 #include "helper.h"
 #include "redd.h"
 
-void 
+void
 msgpack_pack_key_value(msgpack_packer *packer, char *key, int key_len, char *value, int value_len)
 {
 	msgpack_pack_raw(packer, key_len);
@@ -77,7 +70,7 @@ char
 	return NULL;
 }
 
-char 
+char
 *pack_ip_address(char *ip_address)
 {
 	char *packed;
@@ -85,7 +78,7 @@ char
 	return packed;
 }
 
-char 
+char
 *pack_host(char *host)
 {
 	char *packed;

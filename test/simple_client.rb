@@ -1,11 +1,5 @@
 #!/usr/bin/env ruby
-# 
-# Copyright (c) 2015 Pagoda Box Inc
-# 
-# This Source Code Form is subject to the terms of the Mozilla Public License, v.
-# 2.0. If a copy of the MPL was not distributed with this file, You can obtain one
-# at http://mozilla.org/MPL/2.0/.
-# 
+#
 
 require 'socket'
 
@@ -14,7 +8,7 @@ class Connection
   MAX_ATTEMPTS = 30
 
   attr_accessor :socket
-  
+
   def initialize(host='127.0.0.1', port=4000, autoconnect=true)
     @host     = host
     @port     = port

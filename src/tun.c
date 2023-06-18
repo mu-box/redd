@@ -1,12 +1,5 @@
 // -*- mode: c; tab-width: 4; indent-tabs-mode: 1; st-rulers: [70] -*-
 // vim: ts=8 sw=8 ft=c noet
-/*
- * Copyright (c) 2015 Pagoda Box Inc
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public License, v.
- * 2.0. If a copy of the MPL was not distributed with this file, You can obtain one
- * at http://mozilla.org/MPL/2.0/.
- */
 
 #include <netinet/ip.h>
 #include <linux/if.h>
@@ -23,7 +16,7 @@
 #include "tun.h"
 #include "redd.h"
 
-static int 
+static int
 tun_read_each(void* data, async_io_buf_t* elem){
 	async_io_t *tun = (async_io_t *)data;
 	// red_log(REDD_DEBUG, "Device %i is reading into %p which has %i bytes available", tun->fd, elem, elem->maxlen);
@@ -41,19 +34,19 @@ tun_read_each(void* data, async_io_buf_t* elem){
 	return 1;
 }
 
-static void 
+static void
 tun_read_done(void* data, async_io_buf_t* elem){
 	async_io_t *tun = (async_io_t *)data;
 	// red_log(REDD_DEBUG, "Sending message");
 	handle_local_frame(elem->buf, elem->len);
 }
 
-static void 
+static void
 tun_read_cb(void* data, int status){
 	async_io_t *tun = (async_io_t *)data;
 }
 
-static int 
+static int
 tun_write_each(void* data, async_io_buf_t* elem){
 	async_io_t *tun = (async_io_t *)data;
 	int retval;
@@ -72,12 +65,12 @@ tun_write_each(void* data, async_io_buf_t* elem){
 	return 1;
 }
 
-static void 
+static void
 tun_write_done(void* data, async_io_buf_t* elem){
 	async_io_t *tun = (async_io_t *)data;
 }
 
-static void 
+static void
 tun_write_cb(void* data, int status){
 	async_io_t *tun = (async_io_t *)data;
 }

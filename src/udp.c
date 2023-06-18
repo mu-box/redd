@@ -1,12 +1,5 @@
 // -*- mode: c; tab-width: 4; indent-tabs-mode: 1; st-rulers: [70] -*-
 // vim: ts=8 sw=8 ft=c noet
-/*
- * Copyright (c) 2015 Pagoda Box Inc
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public License, v.
- * 2.0. If a copy of the MPL was not distributed with this file, You can obtain one
- * at http://mozilla.org/MPL/2.0/.
- */
 
 #include <stdlib.h>
 #include <string.h>
@@ -40,7 +33,7 @@ udp_set_nonblock(int fd)
 	return (val);
 }
 
-static int 
+static int
 udp_read_each(void* data, async_io_buf_t* elem)
 {
 	async_io_t *async_io = (async_io_t *)data;
@@ -63,19 +56,19 @@ udp_read_each(void* data, async_io_buf_t* elem)
 	return 1;
 }
 
-static void 
+static void
 udp_read_done(void* data, async_io_buf_t* elem)
 {
 	async_io_t *async_io = (async_io_t *)data;
 }
 
-static void 
+static void
 udp_read_cb(void* data, int status)
 {
 	async_io_t *async_io = (async_io_t *)data;
 }
 
-static int 
+static int
 udp_write_each(void* data, async_io_buf_t* elem)
 {
 	async_io_t *async_io = (async_io_t *)data;
@@ -87,13 +80,13 @@ udp_write_each(void* data, async_io_buf_t* elem)
 	return 1;
 }
 
-static void 
+static void
 udp_write_done(void* data, async_io_buf_t* elem)
 {
 	async_io_t *async_io = (async_io_t *)data;
 }
 
-static void 
+static void
 udp_write_cb(void* data, int status)
 {
 	async_io_t *async_io = (async_io_t *)data;
